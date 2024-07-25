@@ -23,9 +23,9 @@ namespace EMPRESTIMO.LIVROS.Repository
             _context.Entry(cliente).State = EntityState.Modified;
         }
 
-        public void Excluir(Cliente id)
+        public void Excluir(Cliente cliente)
         {
-            _context.Cliente.Remove(id);
+            _context.Cliente.Remove(cliente);
         }
 
 
