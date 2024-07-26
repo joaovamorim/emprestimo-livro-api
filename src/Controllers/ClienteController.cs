@@ -1,3 +1,5 @@
+using AutoMapper;
+using EMPRESTIMO.LIVROS.DTOs;
 using EMPRESTIMO.LIVROS.Interfaces;
 using EMPRESTIMO.LIVROS.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,16 +11,21 @@ namespace EMPRESTIMO.LIVROS.Controllers
     public class ClienteController : ControllerBase
     {
         private readonly IClienteRepository _clienteRepository;
+        private readonly IMapper _mapper;
 
-        public ClienteController(IClienteRepository clienteRepository)
+        public ClienteController(IClienteRepository clienteRepository, IMapper mapper)
         {
+            _mapper = mapper;
             _clienteRepository = clienteRepository;
         }
 
         [HttpGet("selecionartodos")]
         public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
         {
-            return Ok(await _clienteRepository.SelecionarTodos());  
+            var clientes = await _clienteRepository.SelecionarTodos();
+            var clientesDTO = _mapper.Map<IEnumerable<ClienteDTO>>(clientes);
+
+            return Ok(clientesDTO);  
         }
 
         [HttpGet("selecionarmypk{id}")]
@@ -30,13 +37,17 @@ namespace EMPRESTIMO.LIVROS.Controllers
                 return NotFound("Cliente não encontrado.");
             }
 
-            return BadRequest(cliente);
+            var clienteDTO = _mapper.Map<ClienteDTO>(cliente);
+
+            return BadRequest(clienteDTO);
         }
 
         [HttpPost("cadastrarcliente")]
-        public async Task<ActionResult> CadastrarCliente(Cliente cliente)
+        public async Task<ActionResult> CadastrarCliente(ClienteDTO clienteDTO)
         {
+            var cliente = _mapper.Map<Cliente>(clienteDTO);
             _clienteRepository.Incluir(cliente);
+
             if (await _clienteRepository.SaveAllAsync())
             {
                 return Ok("Cliente cadastrado com sucesso!");
@@ -46,9 +57,23 @@ namespace EMPRESTIMO.LIVROS.Controllers
         }
 
         [HttpPut("alterarcliente")]
-        public async Task<ActionResult> AlterarCliente(Cliente cliente)
+        public async Task<ActionResult> AlterarCliente(ClienteDTO clienteDTO)
         {
+            if (clienteDTO.Id == 0)
+            {
+                return BadRequest("Não é possivel alterar o cliente. É preciso informar o ID.");
+            }
+
+            var clienteExiste = await _clienteRepository.SelecionarByPk(clienteDTO.Id);
+
+            if (clienteExiste == null)
+            {
+                return NotFound("Cliente não encontrado.");
+            }
+
+            var cliente = _mapper.Map<Cliente>(clienteDTO);
             _clienteRepository.Alterar(cliente);
+            
             if (await _clienteRepository.SaveAllAsync())
             {
                 return Ok("Cliente atualizado com sucesso!");

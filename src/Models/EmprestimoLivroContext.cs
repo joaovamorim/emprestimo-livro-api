@@ -27,10 +27,30 @@ namespace EMPRESTIMO.LIVROS.Models
             modelBuilder.HasDefaultSchema("ANALISTA_MAIN")
                 .UseCollation("USING_NLS_COMP");
 
+            modelBuilder.Entity<Cliente>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<Livro>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
+
             modelBuilder.Entity<LivroClienteEmprestimo>(entity =>
             {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.Lceentregue).IsFixedLength();
             });
+
+            modelBuilder.HasSequence("CLIENTE_SEQ");
+
+            modelBuilder.HasSequence("CLIENTE_SEQ1");
+
+            modelBuilder.HasSequence("LIVRO_CLIENTE_EMPRESTIMO_SEQ");
+
+            modelBuilder.HasSequence("LIVRO_SEQ");
 
             OnModelCreatingPartial(modelBuilder);
         }

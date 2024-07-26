@@ -20,7 +20,14 @@ namespace EMPRESTIMO.LIVROS.Repository
 
         public void Alterar(Cliente cliente)
         {
-            _context.Entry(cliente).State = EntityState.Modified;
+            var existingCliente = _context.Cliente.Find(cliente.Id);
+
+            if (existingCliente != null)
+            {
+                _context.Entry(existingCliente).State = EntityState.Detached;
+            }
+
+            _context.Cliente.Update(cliente);
         }
 
         public void Excluir(Cliente cliente)

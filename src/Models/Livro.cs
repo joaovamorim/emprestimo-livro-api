@@ -13,7 +13,7 @@ namespace EMPRESTIMO.LIVROS.Models
     {
         [Key]
         [Column("ID", TypeName = "NUMBER(38)")]
-        public decimal Id { get; set; }
+        public int Id { get; set; }
         [Required]
         [Column("LIVRONOME")]
         [StringLength(50)]
@@ -33,7 +33,7 @@ namespace EMPRESTIMO.LIVROS.Models
         public DateTime Livroanopublicacao { get; set; }
         [Required]
         [Column("LIVROEDICAO")]
-        [StringLength(50)]
+        [StringLength(60)]
         [Unicode(false)]
         public string Livroedicao { get; set; }
     }

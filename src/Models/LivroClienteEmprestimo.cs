@@ -13,13 +13,13 @@ namespace EMPRESTIMO.LIVROS.Models
     {
         [Key]
         [Column("ID", TypeName = "NUMBER(38)")]
-        public decimal Id { get; set; }
+        public int Id { get; set; }
         [Column("LCELDCLIENTE", TypeName = "NUMBER(38)")]
-        public decimal Lceldcliente { get; set; }
+        public int Lceldcliente { get; set; }
         [Column("LCELDLIVRO", TypeName = "NUMBER(38)")]
-        public decimal Lceldlivro { get; set; }
-        [Column("LCEDATAEMPRESTIMO", TypeName = "DATE")]
-        public DateTime Lcedataemprestimo { get; set; }
+        public int Lceldlivro { get; set; }
+        [Column("LCEDATAEMPRESTIMP", TypeName = "DATE")]
+        public DateTime Lcedataemprestimp { get; set; }
         [Column("LCEDATAENTREGA", TypeName = "DATE")]
         public DateTime Lcedataentrega { get; set; }
         [Required]
