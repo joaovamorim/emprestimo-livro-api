@@ -32,4 +32,8 @@
     <None Include="efpt.config.json.user" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="EMPRESTIMO.LIVROS.Infra.Ioc\EMPRESTIMO.LIVROS.Infra.Ioc.csproj" />
+  </ItemGroup>
+
 </Project>

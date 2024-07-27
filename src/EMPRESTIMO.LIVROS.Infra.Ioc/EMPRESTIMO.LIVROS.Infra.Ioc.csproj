@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\EMPRESTIMO.LIVROS.Application\EMPRESTIMO.LIVROS.Application.csproj" />
+    <ProjectReference Include="..\EMPRESTIMO.LIVROS.Domain\EMPRESTIMO.LIVROS.Domain.csproj" />
+    <ProjectReference Include="..\EMPRESTIMO.LIVROS.Infra.Data\EMPRESTIMO.LIVROS.Infra.Data.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
