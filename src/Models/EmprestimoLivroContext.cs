@@ -24,7 +24,7 @@ namespace EMPRESTIMO.LIVROS.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("ANALISTA_MAIN")
+            modelBuilder.HasDefaultSchema("BOOKS_MAIN")
                 .UseCollation("USING_NLS_COMP");
 
             modelBuilder.Entity<Cliente>(entity =>
